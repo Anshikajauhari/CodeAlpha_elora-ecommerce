@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Create account | ShopEase{% endblock %}
+{% block content %}
+<section class="auth-card"><p class="eyebrow">JOIN SHOPEASE</p><h1>Create your account</h1><p class="muted">A few details and you're ready to shop.</p>
+<form method="post" class="stack-form">{% csrf_token %}
+{% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+<label for="{{ form.username.id_for_label }}">Username</label>{{ form.username }}{% if form.username.errors %}<div class="field-error">{{ form.username.errors }}</div>{% endif %}
+<label for="{{ form.password1.id_for_label }}">Password</label>{{ form.password1 }}{% if form.password1.errors %}<div class="field-error">{{ form.password1.errors }}</div>{% endif %}
+<label for="{{ form.password2.id_for_label }}">Confirm password</label>{{ form.password2 }}{% if form.password2.errors %}<div class="field-error">{{ form.password2.errors }}</div>{% endif %}
+<p class="help-text">Use a strong password that you don't use on other websites.</p>
+<button class="button primary full" type="submit">Create account</button></form><p class="auth-switch">Already registered? <a href="{% url 'login' %}">Log in</a></p></section>
+{% endblock %}

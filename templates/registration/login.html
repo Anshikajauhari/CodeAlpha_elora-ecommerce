@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Login | ShopEase{% endblock %}
+{% block content %}
+<section class="auth-card">
+  <p class="eyebrow">WELCOME BACK</p><h1>Log in to ShopEase</h1><p class="muted">Sign in to continue shopping and view your orders.</p>
+  <form method="post" class="stack-form">{% csrf_token %}
+    {% if form.errors %}<p class="form-error">Username or password is incorrect. Please try again.</p>{% endif %}
+    <label for="{{ form.username.id_for_label }}">Username</label>{{ form.username }}
+    <label for="{{ form.password.id_for_label }}">Password</label>{{ form.password }}
+    <button class="button primary full" type="submit">Log in</button>
+  </form>
+  <p class="auth-switch">New here? <a href="{% url 'register' %}">Create an account</a></p>
+</section>
+{% endblock %}

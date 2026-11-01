@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Checkout | ShopEase{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">ALMOST YOURS</p><h1>Checkout</h1><p class="muted">Enter your delivery details to place your order.</p></div>
+<div class="cart-layout checkout-layout"><section class="panel"><h2>Delivery information</h2><form method="post" class="stack-form">{% csrf_token %}
+<label for="full_name">Full name</label><input id="full_name" name="full_name" required maxlength="160" value="{{ request.user.get_full_name }}">
+<label for="phone">Phone number</label><input id="phone" name="phone" required maxlength="30" autocomplete="tel" placeholder="Your contact number">
+<label for="address">Full delivery address</label><textarea id="address" name="address" rows="4" required placeholder="House/flat, street, city, state, PIN code"></textarea>
+<div class="payment-option"><span class="radio-dot"></span><div><strong>Cash on delivery</strong><p class="muted small">Demo option — no payment gateway is connected.</p></div></div>
+<button class="button primary full" type="submit">Place order · ₹{{ total }}</button></form></section>
+<aside class="summary-card"><h2>Your order</h2>{% for item in items %}<div class="summary-product"><span>{{ item.product.name }} <span class="muted">× {{ item.quantity }}</span></span><strong>₹{{ item.line_total }}</strong></div>{% endfor %}<div class="summary-row"><span>Delivery</span><span class="free-label">FREE</span></div><div class="summary-row total-row"><strong>Total</strong><strong>₹{{ total }}</strong></div></aside></div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Order #{{ order.id }} | ShopEase{% endblock %}
+{% block content %}
+<div class="success-banner"><div class="success-check">✓</div><p class="eyebrow">ORDER CONFIRMED</p><h1>Thanks for your order!</h1><p class="muted">Your demo order has been recorded successfully.</p></div>
+<div class="panel order-detail-panel"><div class="summary-row"><strong>Order #{{ order.id }}</strong><span class="status-tag">{{ order.get_status_display }}</span></div><p class="muted small">Placed {{ order.created_at|date:"d M Y, h:i A" }}</p><h2>Items</h2>{% for item in order.items.all %}<div class="summary-product"><span>{{ item.product_name }} × {{ item.quantity }}</span><strong>₹{{ item.line_total }}</strong></div>{% endfor %}<div class="summary-row total-row"><strong>Total</strong><strong>₹{{ order.total }}</strong></div><h2>Delivery details</h2><p>{{ order.full_name }}<br>{{ order.address|linebreaksbr }}<br>{{ order.phone }}</p><p class="muted small">Payment: Cash on delivery (demo)</p><a class="button secondary" href="{% url 'my_orders' %}">View all orders</a></div>
+{% endblock %}

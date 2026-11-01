@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}ELORA — Botanical skincare for everyday rituals{% endblock %}
+{% block content %}
+<section class="hero hero-premium">
+  <div class="hero-image" role="img" aria-label="Natural botanical skincare ingredients"></div>
+  <div class="hero-copy"><p class="eyebrow">SKINCARE, IN ITS NATURAL RHYTHM</p><h1>Return to<br><em>your nature.</em></h1><p>Thoughtful formulas. Plant-powered ingredients. A little more balance, every day.</p><a class="button primary" href="#products">Explore the collection <span>↗</span></a><div class="hero-caption"><span class="caption-dot"></span> Mindful care, made for real life</div></div>
+  <div class="hero-note"><span>01 / 03</span><span>Plant powered<br>Everyday rituals</span></div>
+</section>
+<section class="intro-strip" id="story"><p class="eyebrow">LESS, BUT BETTER</p><h2>Good skin begins with<br><em>a gentler approach.</em></h2><p>We bring nature and considered science together to create daily essentials your skin can feel good about.</p></section>
+<section id="products" class="products-section"><div class="section-heading"><div><p class="eyebrow">YOUR DAILY RITUAL</p><h2>Meet your essentials</h2></div><a class="text-link" href="#products">Shop the collection ↗</a></div>
+<div class="product-grid">
+  {% for product in products %}<article class="product-card"><a class="product-image" href="{% url 'product_detail' product.id %}">{% if product.image_url %}<img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy">{% else %}<div class="image-placeholder">✳</div>{% endif %}<span class="product-tag">BOTANICAL CARE</span><span class="product-arrow">↗</span></a><div class="product-info"><div class="product-info-top"><a class="product-name" href="{% url 'product_detail' product.id %}">{{ product.name }}</a><strong>₹{{ product.price }}</strong></div><p class="product-description">{{ product.description|truncatechars:90 }}</p><a class="product-quick-link" href="{% url 'product_detail' product.id %}">Discover product <span>→</span></a></div></article>
+  {% empty %}<p class="empty-copy">Our collection is being prepared. Add products through the admin panel.</p>{% endfor %}
+</div></section>
+<section class="ritual-section" id="ritual"><div class="ritual-photo"></div><div class="ritual-copy"><p class="eyebrow">A MOMENT FOR YOU</p><h2>Make space for<br><em>yourself.</em></h2><p>Small rituals. Slower moments. A simple routine that feels like coming home to yourself.</p><a href="#products" class="text-link">Find your everyday care ↗</a></div></section>
+<section class="values-row"><div><span>✳</span><h3>Plant-led formulas</h3><p>Inspired by the natural world.</p></div><div><span>◌</span><h3>Made with intention</h3><p>Only what your routine needs.</p></div><div><span>↗</span><h3>Everyday balance</h3><p>Care that fits your real life.</p></div></section>
+<section class="newsletter"><p class="eyebrow">A NOTE FROM NATURE</p><h2>A softer kind of <em>self-care.</em></h2><p>Explore simple rituals for a more balanced everyday.</p><a class="button dark-button" href="#products">Shop ELORA ↗</a></section>
+{% endblock %}

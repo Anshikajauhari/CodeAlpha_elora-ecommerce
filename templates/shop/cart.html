@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Your cart | ShopEase{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">YOUR SELECTION</p><h1>Shopping cart</h1><p class="muted">Review your items before checking out.</p></div>
+{% if items %}
+<div class="cart-layout"><section class="cart-items">
+{% for item in items %}
+<article class="cart-item"><a class="cart-thumb" href="{% url 'product_detail' item.product.id %}">{% if item.product.image_url %}<img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">{% else %}<div class="image-placeholder">S</div>{% endif %}</a>
+<div class="cart-item-copy"><a class="product-name" href="{% url 'product_detail' item.product.id %}">{{ item.product.name }}</a><p class="muted small">₹{{ item.product.price }} each</p><form class="quantity-form" method="post" action="{% url 'update_cart' item.product.id %}">{% csrf_token %}<label for="qty-{{ item.product.id }}">Qty</label><input id="qty-{{ item.product.id }}" type="number" name="quantity" min="1" max="{{ item.product.stock }}" value="{{ item.quantity }}"><button class="text-button" type="submit">Update</button></form><form method="post" action="{% url 'remove_from_cart' item.product.id %}">{% csrf_token %}<button class="text-button danger" type="submit">Remove</button></form></div>
+<strong class="line-price">₹{{ item.line_total }}</strong></article>
+{% endfor %}
+<a class="back-link" href="{% url 'home' %}">← Continue shopping</a></section>
+<aside class="summary-card"><h2>Order summary</h2><div class="summary-row"><span>Subtotal</span><span>₹{{ total }}</span></div><div class="summary-row"><span>Delivery</span><span class="free-label">FREE</span></div><div class="summary-row total-row"><strong>Total</strong><strong>₹{{ total }}</strong></div><a class="button primary full" href="{% url 'checkout' %}">Continue to checkout <span>→</span></a><p class="secure-note">✓ Demo checkout · No payment is collected</p></aside></div>
+{% else %}
+<div class="empty-state"><div class="empty-icon">🛍</div><h2>Your cart is taking a break</h2><p class="muted">You haven't added anything yet. Find something you love.</p><a class="button primary" href="{% url 'home' %}">Browse products</a></div>
+{% endif %}
+{% endblock %}
